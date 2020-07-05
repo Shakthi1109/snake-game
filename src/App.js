@@ -12,8 +12,9 @@ const getRandomCoordinates = () => {
 
 const initialState = {
   food: getRandomCoordinates(),
-  speed: 200,
+  speed: 150,
   direction: 'RIGHT',
+  score: 0,
   snakeDots: [
     [0,0],
     [2,0]
@@ -39,16 +40,25 @@ class App extends Component {
     e = e || window.event;
     switch (e.keyCode) {
       case 38:
-        this.setState({direction: 'UP'});
+        if (this.state.direction !== "DOWN")
+          this.setState({direction: 'UP'});
         break;
       case 40:
-        this.setState({direction: 'DOWN'});
+        if (this.state.direction !== "UP")
+          this.setState({direction: 'DOWN'});
         break;
       case 37:
-        this.setState({direction: 'LEFT'});
+        if (this.state.direction !== "RIGHT")
+          this.setState({direction: 'LEFT'});
         break;
       case 39:
-        this.setState({direction: 'RIGHT'});
+        if (this.state.direction !== "LEFT")
+          this.setState({direction: 'RIGHT'});
+        break;
+      case 16:
+          this.setState({
+            speed: this.state.speed - 50
+          })
         break;
     }
   }
@@ -105,6 +115,7 @@ class App extends Component {
       })
       this.enlargeSnake();
       this.increaseSpeed();
+      this.updateScore();
     }
   }
 
@@ -124,12 +135,32 @@ class App extends Component {
     }
   }
 
+  updateScore(){
+    this.setState({
+      score: this.state.score + 10
+    })
+  }
+
+  showScore(){
+    document.getElementById('score').innerText = this.state.score;
+    document.getElementById('length').innerText = this.state.snakeDots.length;
+  }
+
+  // pause(){
+  //   clearInterval(interval);
+  // }
+
+
   onGameOver() {
-    alert(`Game Over. Snake length is ${this.state.snakeDots.length}`);
+    alert(`\nGame Over!\n\nYour Score is ${this.state.score}.\n\nSnake length is ${this.state.snakeDots.length}.`);
     this.setState(initialState)
   }
 
   render() {
+    setTimeout(() =>{
+      this.showScore();
+    },1000);
+
     return (
       <body>
         <div className="Heading">How many semicolons can your python 'catch' ?</div>
@@ -137,7 +168,13 @@ class App extends Component {
             <Snake snakeDots={this.state.snakeDots}/>
             <Food dot={this.state.food}/>
           </div>
-        <div className="Hint">Hint: Try to catch the top portion of the semicolon</div>
+        <div className="Hint">Hint: Top portion of a semicolon is the delicious part</div>
+        <div id="score_container">
+          <p>Score : <span id="score"> 0</span></p>
+          <p>Length : <span id="length"> 2</span></p>
+        </div>
+        {/* <button onClick={this.pause()}>pause</button>
+        <button onClick={this.play()}>play</button> */}
       </body>
     );
   }
