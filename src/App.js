@@ -12,7 +12,7 @@ const getRandomCoordinates = () => {
 
 const initialState = {
   food: getRandomCoordinates(),
-  speed: 150,
+  speed: 100,
   direction: 'RIGHT',
   score: 0,
   snakeDots: [
@@ -23,7 +23,15 @@ const initialState = {
 
 class App extends Component {
 
-  state = initialState;
+  constructor(props) {
+    super();
+    this.state = initialState;
+  }
+
+  speed() {
+    clearInterval(this.interval);
+    this.interval = setInterval(this.moveSnake, this.state.speed);
+  }
 
   componentDidMount() {
     setInterval(this.moveSnake, this.state.speed);
@@ -34,6 +42,7 @@ class App extends Component {
     this.checkIfOutOfBorders();
     this.checkIfCollapsed();
     this.checkIfEat();
+    this.speed();
   }
 
   onKeyDown = (e) => {
@@ -56,12 +65,15 @@ class App extends Component {
           this.setState({direction: 'RIGHT'});
         break;
       case 16:
-          this.setState({
-            speed: this.state.speed - 50
-          })
+          this.setState({speed:50});
+        break;
+      case 17:
+          this.setState({speed:(200-(this.state.snakeDots.length*5))});
+        break;
+      default:
         break;
     }
-  }
+  };
 
   moveSnake = () => {
     let dots = [...this.state.snakeDots];
@@ -79,6 +91,8 @@ class App extends Component {
         break;
       case 'UP':
         head = [head[0], head[1] - 2];
+        break;
+      default:
         break;
     }
     dots.push(head);
@@ -128,9 +142,9 @@ class App extends Component {
   }
 
   increaseSpeed() {
-    if (this.state.speed > 10) {
+    if (this.state.speed > 50) {
       this.setState({
-        speed: this.state.speed - 10
+        speed: this.state.speed - 5
       })
     }
   }
@@ -172,6 +186,16 @@ class App extends Component {
         <div id="score_container">
           <p>Score : <span id="score"> 0</span></p>
           <p>Length : <span id="length"> 2</span></p>
+        </div>
+        <div className="Instn">
+          <p>Instructions:</p>
+          <ul>
+            <li>Use arrow keys to move</li>
+            <li>Press shift to activate HyperSnake</li>
+            <li>Press Lctrl to clam the snake down</li>
+            <li>Hold arrow keys for slow motion</li>
+          </ul>
+        
         </div>
         {/* <button onClick={this.pause()}>pause</button>
         <button onClick={this.play()}>play</button> */}
