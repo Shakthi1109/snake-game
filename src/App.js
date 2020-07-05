@@ -12,7 +12,7 @@ const getRandomCoordinates = () => {
 
 const initialState = {
   food: getRandomCoordinates(),
-  speed: 100,
+  speed: 150,
   direction: 'RIGHT',
   score: 0,
   snakeDots: [
@@ -160,11 +160,6 @@ class App extends Component {
     document.getElementById('length').innerText = this.state.snakeDots.length;
   }
 
-  // pause(){
-  //   clearInterval(interval);
-  // }
-
-
   onGameOver() {
     alert(`\nGame Over!\n\nYour Score is ${this.state.score}.\n\nSnake length is ${this.state.snakeDots.length}.`);
     this.setState(initialState)
@@ -191,14 +186,12 @@ class App extends Component {
           <p>Instructions:</p>
           <ul>
             <li>Use arrow keys to move</li>
-            <li>Press shift to activate HyperSnake</li>
-            <li>Press Lctrl to clam the snake down</li>
+            <li>Press Shift to activate HyperSnake</li>
+            <li>Press Ctrl to clam the snake down</li>
             <li>Hold arrow keys for slow motion</li>
           </ul>
         
         </div>
-        {/* <button onClick={this.pause()}>pause</button>
-        <button onClick={this.play()}>play</button> */}
       </body>
     );
   }
