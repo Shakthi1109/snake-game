@@ -1,4 +1,4 @@
-## Snake-Game
+## Snake-Game ReactJs
 This is a snake game built using React jS.
 
 To run this App, open CMD in preferred directory and run the following commands:
@@ -13,10 +13,10 @@ To run this App, open CMD in preferred directory and run the following commands:
 
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-Screenshot:
 
-![Screenshot (172)](https://user-images.githubusercontent.com/30747806/86536201-56c85c80-bf03-11ea-9e96-ea3b42c16545.png)
+### [Watch on Youtube](https://youtu.be/r2TJ985VVKM)
 
-Working video:
+[![snake-game](https://img.youtube.com/vi/r2TJ985VVKM/hqdefault.jpg)](https://youtu.be/r2TJ985VVKM "Click to Play Video")
+
 
 [https://youtu.be/r2TJ985VVKM](https://youtu.be/r2TJ985VVKM)
